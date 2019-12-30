@@ -1,6 +1,6 @@
 # yosep-restaurant-project
-*JDK: JAVA8
+* JDK: JAVA8
 
-*Group/Package: com.yosep.restaurant
+* Group/Package: com.yosep.restaurant
 
-*Dependencies: WEB, DevTools, Lombok
+* Dependencies: WEB, DevTools, Lombok
