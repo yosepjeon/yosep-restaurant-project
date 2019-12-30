@@ -1,7 +1,8 @@
 package com.yosep.restaurant.domain;
 
 public class Restaurant {
-	private final String name;
+	private Long id;
+	private String name;
 	private String address;
 	
 	public Restaurant(String name) {
@@ -13,9 +14,24 @@ public class Restaurant {
 		this.name = name;
 		this.address = address;
 	}
+	
+	public Restaurant(Long id,String name, String address) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.address = address;
+		this.id = id;
+	}
+	
+	public Long getId() {
+		return id;
+	}
 
 	public String getName() {
-		return "Mcdonald";
+		return name;
+	}
+	
+	public String getAddress() {
+		return address;
 	}
 
 	public String getInformation() {
