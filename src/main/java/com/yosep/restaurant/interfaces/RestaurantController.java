@@ -3,6 +3,7 @@ package com.yosep.restaurant.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +15,10 @@ import com.yosep.restaurant.domain.RestaurantRepository;
 // 실제로 로직을 수행하는 것들은 비지니스 혹은 도메인 모델에 있도록 하는 것.
 @RestController
 public class RestaurantController {
-	private RestaurantRepository repository = new RestaurantRepository();
-
+//	private RestaurantRepository repository = new RestaurantRepository();
+	@Autowired
+	private RestaurantRepository repository;
+	
 	@GetMapping("/restaurants")
 	public List<Restaurant> list() {
 //		List<Restaurant> restaurants = new ArrayList<>();
