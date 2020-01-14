@@ -14,6 +14,9 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.yosep.restaurant.application.RestaurantService;
+import com.yosep.restaurant.domain.MenuItemRepository;
+import com.yosep.restaurant.domain.MenuItemRepositoryImpl;
 import com.yosep.restaurant.domain.RestaurantRepository;
 import com.yosep.restaurant.domain.RestaurantRepositoryImpl;
 
@@ -30,6 +33,12 @@ public class RestaurantControllerTest {
 	@SpyBean(RestaurantRepositoryImpl.class)
 	private RestaurantRepository restaurantRepository;
 
+	@SpyBean(MenuItemRepositoryImpl.class)
+	private MenuItemRepository menuItemRepository;
+	
+	@SpyBean(RestaurantService.class)
+	private RestaurantService restaurantService;
+	
 	@Test
 	public void list() throws Exception {
 		mvc.perform(get("/restaurants")).andExpect(status().isOk())
@@ -44,6 +53,7 @@ public class RestaurantControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(content().string(containsString("\"id\":1004")))
 			.andExpect(content().string(containsString("\"name\":\"Mcdonald\"")))
-			.andExpect(content().string(containsString("\"address\":\"Seoul\"")));
+			.andExpect(content().string(containsString("\"address\":\"Seoul\"")))
+			.andExpect(content().string(containsString("BigMac")));
 	}
 }
