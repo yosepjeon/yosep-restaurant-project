@@ -10,6 +10,7 @@ import com.yosep.restaurant.domain.MenuItemRepository;
 import com.yosep.restaurant.domain.Restaurant;
 import com.yosep.restaurant.domain.RestaurantRepository;
 
+// application layer을 추가하여 비지니스 로직을 구현
 @Service
 public class RestaurantService {
 	@Autowired
