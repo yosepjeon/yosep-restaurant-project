@@ -9,6 +9,10 @@ public class Restaurant {
 	private String address;
 	private List<MenuItem> menuItems = new ArrayList<>();
 	
+	public Restaurant() {
+		
+	}
+	
 	public Restaurant(String name) {
 		this.name = name;
 	}
@@ -45,6 +49,10 @@ public class Restaurant {
 	
 	public List<MenuItem> getMenuItems() {
 		return menuItems;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void addMenuItem(MenuItem menuItem) {

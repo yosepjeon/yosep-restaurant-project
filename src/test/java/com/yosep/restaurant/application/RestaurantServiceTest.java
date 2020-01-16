@@ -1,5 +1,6 @@
 package com.yosep.restaurant.application;
 
+import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -85,5 +86,19 @@ class RestaurantServiceTest {
 
 //		MenuItem menuItem = restaurant.getMenuItems().get(0);
 //		assertThat(menuItem.getName(), is("BigMac"));
+	}
+	
+	@Test
+	public void addRestaurant() {
+		setUp();
+		
+		Restaurant restaurant = new Restaurant("BeRyong", "Busan");
+		Restaurant saved = new Restaurant(1234L, "BeRyong", "Busan");
+		
+		given(restaurantRepository.save(null)).willReturn(saved);
+		
+		Restaurant created = restaurantService.addRestaurant(restaurant);
+	
+		assertThat(created.getId(), is(1234L));
 	}
 }

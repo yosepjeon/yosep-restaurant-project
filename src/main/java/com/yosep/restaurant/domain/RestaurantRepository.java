@@ -6,4 +6,6 @@ public interface RestaurantRepository {
 	public List<Restaurant> findAll();
 	
 	public Restaurant findById(Long id);
+
+	public Restaurant save(Restaurant restaurant);
 }

@@ -39,4 +39,9 @@ public class RestaurantService {
 		// TODO Auto-generated method stub
 		return restaurants ;
 	}
+
+	public Restaurant addRestaurant(Restaurant restaurant) {
+		// TODO Auto-generated method stub
+		return restaurantRepository.save(restaurant);
+	}
 }
