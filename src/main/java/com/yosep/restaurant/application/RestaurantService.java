@@ -49,7 +49,7 @@ public class RestaurantService {
 
 	@Transactional
 	// 실제로 update를 할때 save를 명시적으로 하지않고 Transactional 어노테이션을 이용해서
-	// Transaction 범위를 잡아줌과 동시에 트랜잭션 범위에서 처리가 벗어났을때 같이 내용이 적용되는 것을 확인하였다.
+	// Transaction 범위를 잡아줌과 동시에 트랜잭션 범위에서 처리가 벗어났을때 같이 내용이 적용되는 것을 확인하였다.i
 	public Restaurant updateRestaurant(long id, String name, String address) {
 		// TODO Auto-generated method stub
 		Restaurant restaurant = restaurantRepository.findById(id).orElse(null);

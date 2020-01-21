@@ -1,21 +1,18 @@
 package com.yosep.restaurant.application;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import com.yosep.restaurant.domain.MenuItem;
 import com.yosep.restaurant.domain.MenuItemRepository;
@@ -45,13 +42,19 @@ class RestaurantServiceTest {
 	private void mockMenuItemRepository() {
 		// TODO Auto-generated method stub
 		List<MenuItem> menuItems = new ArrayList<>();
-		menuItems.add(new MenuItem("BigMac"));
+		menuItems.add(MenuItem.builder().name("BigMac").build());
 		given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
 	}
 
 	private void mockRestaurantRepository() {
 		List<Restaurant> restaurants = new ArrayList<>();
-		Restaurant restaurant = new Restaurant(1004L, "Bob zip", "Seoul");
+//		Restaurant restaurant = new Restaurant(1004L, "Bob zip", "Seoul");
+		Restaurant restaurant = Restaurant.builder()
+				.id(1004L)
+				.name("Bob zip")
+				.address("Seoul")
+				.menuItems(new ArrayList<>())
+				.build();
 		restaurants.add(restaurant);
 
 		given(restaurantRepository.findAll()).willReturn(restaurants);
@@ -69,6 +72,18 @@ class RestaurantServiceTest {
 
 		assertThat(restaurant.getId(), is(1004L));
 	}
+	
+//	@Test
+//	public void detail() throws Exception {
+//		Restaurant restaurant1 = new Restaurant(1004L,"JOKER House", "Seoul");
+//		restaurant1.setMenuItems(Arrays.asList(new MenuItem("Kimchi")));
+//		
+//		Restaurant restaurant2 = new Restaurant(2020L, "Cyber Food", "Seoul");
+//		
+//		given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
+//		given(restaurantService.getRestaurant(2020L)).willReturn(restaurant2);
+//		
+//	}
 
 	@Test
 	public void getRestaurants() {
@@ -91,9 +106,17 @@ class RestaurantServiceTest {
 	public void addRestaurant() {
 		setUp();
 
-		Restaurant restaurant = new Restaurant("BeRyong", "Busan");
-		Restaurant saved = new Restaurant(1234L, "BeRyong", "Busan");
-
+//		Restaurant restaurant = new Restaurant("BeRyong", "Busan");
+		Restaurant restaurant = Restaurant.builder()
+				.name("BeRyong")
+				.address("Busan")
+				.build();
+//		Restaurant saved = new Restaurant(1234L, "BeRyong", "Busan");
+		Restaurant saved = Restaurant.builder()
+				.id(1234L)
+				.name("BeRyong")
+				.address("Busan")
+				.build();
 		given(restaurantRepository.save(null)).willReturn(saved);
 
 		Restaurant created = restaurantService.addRestaurant(restaurant);
@@ -104,7 +127,12 @@ class RestaurantServiceTest {
 	@Test
 	public void updateRestaurant() {
 		setUp();
-		Restaurant restaurant = new Restaurant(1004L, "BobZip", "Seoul");
+//		Restaurant restaurant = new Restaurant(1004L, "BobZip", "Seoul");
+		Restaurant restaurant = Restaurant.builder()
+				.id(1004L)
+				.name("Bob zip")
+				.address("Seoul")
+				.build();
 		given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
 
 		restaurantService.updateRestaurant(1004L, "Sool zip", "Busan");

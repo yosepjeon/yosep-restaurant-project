@@ -72,7 +72,7 @@ public class RestaurantControllerTest {
 	@Test
 	public void detail() throws Exception {
 		Restaurant restaurant1 = new Restaurant(1004L, "Joker House","Seoul");
-		restaurant1.addMenuItem(new MenuItem("BigMac"));
+		restaurant1.addMenuItem(MenuItem.builder().name("Kimchi").build());
 		Restaurant restaurant2 = new Restaurant(2020L, "Cyber Food","Seoul");
 		
 		given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
@@ -83,7 +83,7 @@ public class RestaurantControllerTest {
 			.andExpect(content().string(containsString("\"id\":1004")))
 			.andExpect(content().string(containsString("\"name\":\"Joker House\"")))
 			.andExpect(content().string(containsString("\"address\":\"Seoul\"")))
-			.andExpect(content().string(containsString("BigMac")));
+			.andExpect(content().string(containsString("Kimchi")));
 	
 		mvc.perform(get("/restaurants/2020"))
 		.andExpect(status().isOk())

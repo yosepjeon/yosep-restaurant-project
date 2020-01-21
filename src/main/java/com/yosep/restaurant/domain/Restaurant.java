@@ -8,7 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Restaurant {
 	@Id
 	@GeneratedValue
@@ -18,10 +29,6 @@ public class Restaurant {
 	
 	@Transient
 	private List<MenuItem> menuItems = new ArrayList<>();
-	
-	public Restaurant() {
-		
-	}
 	
 	public Restaurant(String name) {
 		this.name = name;
@@ -39,42 +46,20 @@ public class Restaurant {
 		this.address = address;
 		this.id = id;
 	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-	
-	public String getAddress() {
-		return address;
-	}
 
 	public String getInformation() {
 		// TODO Auto-generated method stub
 		return name + " in " + address;
 	}
-	
-	public List<MenuItem> getMenuItems() {
-		return menuItems;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public void addMenuItem(MenuItem menuItem) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		menuItems.add(menuItem);
 	}
 
 	public void setMenuItems(List<MenuItem> menuItems) {
 		// TODO Auto-generated method stub
-		for(MenuItem menuItem : menuItems) {
-			addMenuItem(menuItem);
-		}
+		this.menuItems = new ArrayList<>(menuItems);
 	}
 	
 	public void updateInformation(String name, String address) {
