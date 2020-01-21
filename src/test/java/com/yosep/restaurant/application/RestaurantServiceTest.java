@@ -35,7 +35,7 @@ class RestaurantServiceTest {
 	@BeforeTestExecution
 	public void setUp() {
 		MockitoAnnotations.initMocks(this); // 현재 @Mock이 붙어있는 것들을 초기화해줌.
-//		mockRestaurantRepository();
+		mockRestaurantRepository();
 		mockMenuItemRepository();
 //		restaurantRepository = new RestaurantRepositoryImpl();
 //		menuItemRepository = new MenuItemRepositoryImpl();
@@ -51,7 +51,7 @@ class RestaurantServiceTest {
 
 	private void mockRestaurantRepository() {
 		List<Restaurant> restaurants = new ArrayList<>();
-		Restaurant restaurant = new Restaurant(1004L, "Joker House", "Seoul");
+		Restaurant restaurant = new Restaurant(1004L, "Bob zip", "Seoul");
 		restaurants.add(restaurant);
 
 		given(restaurantRepository.findAll()).willReturn(restaurants);
@@ -86,18 +86,30 @@ class RestaurantServiceTest {
 //		MenuItem menuItem = restaurant.getMenuItems().get(0);
 //		assertThat(menuItem.getName(), is("BigMac"));
 	}
-	
+
 	@Test
 	public void addRestaurant() {
 		setUp();
-		
+
 		Restaurant restaurant = new Restaurant("BeRyong", "Busan");
 		Restaurant saved = new Restaurant(1234L, "BeRyong", "Busan");
-		
+
 		given(restaurantRepository.save(null)).willReturn(saved);
-		
+
 		Restaurant created = restaurantService.addRestaurant(restaurant);
-	
+
 		assertThat(saved.getId(), is(1234L));
+	}
+
+	@Test
+	public void updateRestaurant() {
+		setUp();
+		Restaurant restaurant = new Restaurant(1004L, "BobZip", "Seoul");
+		given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
+
+		restaurantService.updateRestaurant(1004L, "Sool zip", "Busan");
+		
+		assertThat(restaurant.getName(), is("Sool zip"));
+		assertThat(restaurant.getAddress(), is("Busan"));
 	}
 }

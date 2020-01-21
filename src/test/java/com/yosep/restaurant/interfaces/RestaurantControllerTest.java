@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -104,5 +105,16 @@ public class RestaurantControllerTest {
 			.andExpect(content().string("{}"));
 		
 //		verify(restaurantService).addRestaurant(Any);
+	}
+	
+	@Test
+	public void update() throws Exception {
+		// 1004L, {"name":"JOKER Bar", "address":"Busan"}
+		mvc.perform(patch("/restaurants/1004")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"name\":\"JOKER Bar\", \"address\":\"Busan\"}"))
+			.andExpect(status().isOk());
+		
+		verify(restaurantService).updateRestaurant(1004L,"JOKER Bar","Busan");
 	}
 }
