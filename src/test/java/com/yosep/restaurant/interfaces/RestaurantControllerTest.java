@@ -27,10 +27,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.yosep.restaurant.application.RestaurantService;
 import com.yosep.restaurant.domain.MenuItem;
 import com.yosep.restaurant.domain.MenuItemRepository;
-import com.yosep.restaurant.domain.MenuItemRepositoryImpl;
 import com.yosep.restaurant.domain.Restaurant;
 import com.yosep.restaurant.domain.RestaurantRepository;
-import com.yosep.restaurant.domain.RestaurantRepositoryImpl;
+//import com.yosep.restaurant.domain.RestaurantRepositoryImpl;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 

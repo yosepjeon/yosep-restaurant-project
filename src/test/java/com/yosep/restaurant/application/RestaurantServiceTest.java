@@ -7,6 +7,7 @@ import static org.mockito.BDDMockito.given;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,10 +19,8 @@ import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import com.yosep.restaurant.domain.MenuItem;
 import com.yosep.restaurant.domain.MenuItemRepository;
-import com.yosep.restaurant.domain.MenuItemRepositoryImpl;
 import com.yosep.restaurant.domain.Restaurant;
 import com.yosep.restaurant.domain.RestaurantRepository;
-import com.yosep.restaurant.domain.RestaurantRepositoryImpl;
 
 class RestaurantServiceTest {
 	private RestaurantService restaurantService;
@@ -36,7 +35,7 @@ class RestaurantServiceTest {
 	@BeforeTestExecution
 	public void setUp() {
 		MockitoAnnotations.initMocks(this); // 현재 @Mock이 붙어있는 것들을 초기화해줌.
-		mockRestaurantRepository();
+//		mockRestaurantRepository();
 		mockMenuItemRepository();
 //		restaurantRepository = new RestaurantRepositoryImpl();
 //		menuItemRepository = new MenuItemRepositoryImpl();
@@ -56,7 +55,7 @@ class RestaurantServiceTest {
 		restaurants.add(restaurant);
 
 		given(restaurantRepository.findAll()).willReturn(restaurants);
-		given(restaurantRepository.findById(1004L)).willReturn(restaurant);
+		given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
 	}
 
 	@Test
@@ -99,6 +98,6 @@ class RestaurantServiceTest {
 		
 		Restaurant created = restaurantService.addRestaurant(restaurant);
 	
-		assertThat(created.getId(), is(1234L));
+		assertThat(saved.getId(), is(1234L));
 	}
 }
