@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.yosep.restaurant.domain.RestaurantRepository;
 
 // UI Layer는 사용자와 내부에 있는 비즈니스 로직 또는 도메인 모델들이 서로 상관없도록 징검다리 역할만 하도록 하고,
 // 실제로 로직을 수행하는 것들은 비지니스 혹은 도메인 모델에 있도록 하는 것.
+@CrossOrigin
 @RestController
 public class RestaurantController {
 //	private RestaurantRepository repository = new RestaurantRepository();
