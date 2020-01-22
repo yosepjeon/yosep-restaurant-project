@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +34,8 @@ public class Restaurant {
 	private String address;
 	
 	@Transient
-	private List<MenuItem> menuItems = new ArrayList<>();
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<MenuItem> menuItems;
 	
 	public Restaurant(String name) {
 		this.name = name;

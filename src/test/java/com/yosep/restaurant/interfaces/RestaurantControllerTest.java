@@ -66,7 +66,13 @@ public class RestaurantControllerTest {
 	
 	@Test
 	public void detailWithExisted() throws Exception {
-		Restaurant restaurant1 = new Restaurant(1004L, "Joker House","Seoul");
+//		Restaurant restaurant1 = new Restaurant(1004L, "Joker House","Seoul");
+		Restaurant restaurant1 = Restaurant.builder()
+				.id(1004L)
+				.name("Joker House")
+				.address("Seoul")
+				.menuItems(new ArrayList<>())
+				.build();
 		restaurant1.addMenuItem(MenuItem.builder().name("Kimchi").build());
 		Restaurant restaurant2 = new Restaurant(2020L, "Cyber Food","Seoul");
 		
