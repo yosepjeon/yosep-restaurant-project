@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
@@ -17,6 +17,7 @@ import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import com.yosep.restaurant.domain.MenuItem;
 import com.yosep.restaurant.domain.MenuItemRepository;
 import com.yosep.restaurant.domain.Restaurant;
+import com.yosep.restaurant.domain.RestaurantNotFoundException;
 import com.yosep.restaurant.domain.RestaurantRepository;
 
 class RestaurantServiceTest {
@@ -62,7 +63,7 @@ class RestaurantServiceTest {
 	}
 
 	@Test
-	public void getRestaurant() {
+	public void getRestaurantWithExisted() {
 //		restaurantRepository = new RestaurantRepositoryImpl();
 //		menuItemRepository = new MenuItemRepositoryImpl();
 //		restaurantService = new RestaurantService(restaurantRepository, menuItemRepository);
@@ -71,6 +72,13 @@ class RestaurantServiceTest {
 		Restaurant restaurant = restaurantService.getRestaurant(1004L);
 
 		assertThat(restaurant.getId(), is(1004L));
+	}
+	
+	@Test(expected=RestaurantNotFoundException.class)
+	public void getRestaurantWithNotExisted() {
+		setUp();
+		
+		Restaurant restaurant = restaurantService.getRestaurant(404L);
 	}
 	
 //	@Test

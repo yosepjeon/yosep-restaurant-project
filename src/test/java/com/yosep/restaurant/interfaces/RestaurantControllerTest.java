@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.yosep.restaurant.application.RestaurantService;
 import com.yosep.restaurant.domain.MenuItem;
 import com.yosep.restaurant.domain.Restaurant;
+import com.yosep.restaurant.domain.RestaurantNotFoundException;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RestaurantController.class) // Restaurant 컨트롤러를 테스트하겠다는 어노테이션
@@ -64,7 +65,7 @@ public class RestaurantControllerTest {
 	}
 	
 	@Test
-	public void detail() throws Exception {
+	public void detailWithExisted() throws Exception {
 		Restaurant restaurant1 = new Restaurant(1004L, "Joker House","Seoul");
 		restaurant1.addMenuItem(MenuItem.builder().name("Kimchi").build());
 		Restaurant restaurant2 = new Restaurant(2020L, "Cyber Food","Seoul");
@@ -86,6 +87,15 @@ public class RestaurantControllerTest {
 		.andExpect(content().string(containsString("\"address\":\"Seoul\"")));
 	}
 	
+	@Test
+	public void detailWithNotExisted() throws Exception {
+		given(restaurantService.getRestaurant(404L))
+			.willThrow(new RestaurantNotFoundException(404L));
+		
+		mvc.perform(get("/restaurants/404"))
+			.andExpect(status().isNotFound())
+			.andExpect(content().string("{}"));
+	}
 	
 	@Test
 	public void createWithValidData()throws Exception {

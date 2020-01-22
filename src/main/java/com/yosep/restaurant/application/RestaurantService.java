@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yosep.restaurant.domain.MenuItem;
 import com.yosep.restaurant.domain.MenuItemRepository;
 import com.yosep.restaurant.domain.Restaurant;
+import com.yosep.restaurant.domain.RestaurantNotFoundException;
 import com.yosep.restaurant.domain.RestaurantRepository;
 
 // application layer을 추가하여 비지니스 로직을 구현
@@ -28,7 +29,7 @@ public class RestaurantService {
 	
 	public Restaurant getRestaurant(Long id) {
 		//실제 실무에서는 이렇게 사용하면 안됨. restaurant에 대한 null exception이 안되어있기 때문.
-		Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+		Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> new RestaurantNotFoundException(id));
 		
 		List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
 		restaurant.setMenuItems(menuItems);
