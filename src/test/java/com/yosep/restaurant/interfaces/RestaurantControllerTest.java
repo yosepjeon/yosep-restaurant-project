@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -28,6 +29,7 @@ import com.yosep.restaurant.application.RestaurantService;
 import com.yosep.restaurant.domain.MenuItem;
 import com.yosep.restaurant.domain.Restaurant;
 import com.yosep.restaurant.domain.RestaurantNotFoundException;
+import com.yosep.restaurant.domain.Review;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RestaurantController.class) // Restaurant 컨트롤러를 테스트하겠다는 어노테이션
@@ -67,30 +69,37 @@ public class RestaurantControllerTest {
 	@Test
 	public void detailWithExisted() throws Exception {
 //		Restaurant restaurant1 = new Restaurant(1004L, "Joker House","Seoul");
-		Restaurant restaurant1 = Restaurant.builder()
+		Restaurant restaurant = Restaurant.builder()
 				.id(1004L)
 				.name("Joker House")
 				.address("Seoul")
 				.menuItems(new ArrayList<>())
 				.build();
-		restaurant1.addMenuItem(MenuItem.builder().name("Kimchi").build());
-		Restaurant restaurant2 = new Restaurant(2020L, "Cyber Food","Seoul");
+		restaurant.addMenuItem(MenuItem.builder().name("Kimchi").build());
+		Review review = Review.builder()
+				.name("JOKER")
+				.score(5)
+				.description("Great!")
+				.build();
+		restaurant.setReviews(Arrays.asList(review));
+//		Restaurant restaurant2 = new Restaurant(2020L, "Cyber Food","Seoul");
 		
-		given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
-		given(restaurantService.getRestaurant(2020L)).willReturn(restaurant2);
+		given(restaurantService.getRestaurant(1004L)).willReturn(restaurant);
+//		given(restaurantService.getRestaurant(2020L)).willReturn(restaurant2);
 		
 		mvc.perform(get("/restaurants/1004"))
 			.andExpect(status().isOk())
 			.andExpect(content().string(containsString("\"id\":1004")))
 			.andExpect(content().string(containsString("\"name\":\"Joker House\"")))
 			.andExpect(content().string(containsString("\"address\":\"Seoul\"")))
-			.andExpect(content().string(containsString("Kimchi")));
+			.andExpect(content().string(containsString("Kimchi")))
+			.andExpect(content().string(containsString("Great!")));
 	
-		mvc.perform(get("/restaurants/2020"))
-		.andExpect(status().isOk())
-		.andExpect(content().string(containsString("\"id\":2020")))
-		.andExpect(content().string(containsString("\"name\":\"Cyber Food\"")))
-		.andExpect(content().string(containsString("\"address\":\"Seoul\"")));
+//		mvc.perform(get("/restaurants/2020"))
+//		.andExpect(status().isOk())
+//		.andExpect(content().string(containsString("\"id\":2020")))
+//		.andExpect(content().string(containsString("\"name\":\"Cyber Food\"")))
+//		.andExpect(content().string(containsString("\"address\":\"Seoul\"")));
 	}
 	
 	@Test

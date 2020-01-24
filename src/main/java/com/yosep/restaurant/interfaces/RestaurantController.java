@@ -62,7 +62,7 @@ public class RestaurantController {
 		
 //		기존의 레파지토리는 컬렉션의 역할을 해왔지만 이러한 여러가지 컬렉션 기능들을 복합적으로 수행시키기 위해 서비스 객체 이용
 		Restaurant restaurant = restaurantService.getRestaurant(id);
-		
+		System.out.println(restaurant.getReviews());
 		
 //		List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
 //		System.out.println("menuItems.size(): " + menuItems.size());

@@ -35,6 +35,10 @@ public class Restaurant {
 	
 	@Transient
 	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Review> reviews;
+	
+	@Transient
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<MenuItem> menuItems;
 	
 	public Restaurant(String name) {
@@ -72,5 +76,10 @@ public class Restaurant {
 	public void updateInformation(String name, String address) {
 		this.name = name;
 		this.address = address;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		// TODO Auto-generated method stub
+		this.reviews = new ArrayList<>(reviews);
 	}
 }

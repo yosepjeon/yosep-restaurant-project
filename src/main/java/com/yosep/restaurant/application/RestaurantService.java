@@ -11,20 +11,23 @@ import com.yosep.restaurant.domain.MenuItemRepository;
 import com.yosep.restaurant.domain.Restaurant;
 import com.yosep.restaurant.domain.RestaurantNotFoundException;
 import com.yosep.restaurant.domain.RestaurantRepository;
+import com.yosep.restaurant.domain.Review;
+import com.yosep.restaurant.domain.ReviewRepository;
 
 // application layer을 추가하여 비지니스 로직을 구현
 @Service
 public class RestaurantService {
-	@Autowired
-	RestaurantRepository restaurantRepository;
+	
+	private RestaurantRepository restaurantRepository;
+	private MenuItemRepository menuItemRepository;
+	private ReviewRepository reviewRepository;
 	
 	@Autowired
-	MenuItemRepository menuItemRepository;
-	
-	public RestaurantService(RestaurantRepository restaurantRepository, MenuItemRepository menuItemRepository) {
+	public RestaurantService(RestaurantRepository restaurantRepository, MenuItemRepository menuItemRepository, ReviewRepository reviewRepository) {
 		// TODO Auto-generated constructor stub
 		this.restaurantRepository = restaurantRepository;
 		this.menuItemRepository = menuItemRepository;
+		this.reviewRepository = reviewRepository;
 	}
 	
 	public Restaurant getRestaurant(Long id) {
@@ -33,6 +36,9 @@ public class RestaurantService {
 		
 		List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
 		restaurant.setMenuItems(menuItems);
+		
+		List<Review> reviews = reviewRepository.findAllByRestaurantId(id);
+		restaurant.setReviews(reviews);
 		
 		return restaurant;
 	}
