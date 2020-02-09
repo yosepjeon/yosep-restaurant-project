@@ -1,4 +1,3 @@
 rootProject.name = 'yosep-spring-restaurant'
 
-include 'restaurant-admin-api'
-
+include ':restaurant-admin-api', ':restaurant-customer-api',':restaurant-common'

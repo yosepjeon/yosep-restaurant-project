@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.4.RELEASE'
+		springBootVersion = '2.2.2.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -57,6 +57,6 @@ repositories {
 
 dependencies {
 	compile project(':restaurant-admin-api')
+	compile project(':restaurant-common')
+	compile project(':restaurant-customer-api')
 }
-
-
